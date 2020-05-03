@@ -8,7 +8,6 @@ public class PlayerCollision : MonoBehaviour
     public Rigidbody rb;
     void OnCollisionEnter (Collision collisionInfo)
     {
-        Debug.Log("Collision Info: " + collisionInfo.collider.tag);
         if (collisionInfo.collider.tag == "Obstacle")
         {
             movement.enabled = false;

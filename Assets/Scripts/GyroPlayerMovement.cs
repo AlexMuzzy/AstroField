@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,6 +8,7 @@ public class GyroPlayerMovement : MonoBehaviour
 {
     public Rigidbody rb;
 
+    public Boolean enableGyroLogging;
     public Text xAxis;
     public Text yAxis;
     public Text zAxis;
@@ -26,6 +28,14 @@ public class GyroPlayerMovement : MonoBehaviour
             startingGyroZaxisValue = getGyroZAxisValue();
         }
 
+        if (!enableGyroLogging)
+        {
+            xAxis.enabled = enableGyroLogging;
+            yAxis.enabled = enableGyroLogging;
+            zAxis.enabled = enableGyroLogging;
+            gyroValues.enabled = enableGyroLogging;
+        }
+
     }
 
     void Update()
@@ -39,9 +49,12 @@ public class GyroPlayerMovement : MonoBehaviour
             startingGyroZaxisValue = getGyroZAxisValue();
         }
         float currentGyroEndValue = CalculateGyroEndValue();
-
         MobilePlayerMovement(currentGyroEndValue);
-        LogGyroValues(currentGyroEndValue);
+
+        if (enableGyroLogging)
+        {
+            LogGyroValues(currentGyroEndValue);
+        }
     }
 
     public float getGyroZAxisValue()

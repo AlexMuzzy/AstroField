@@ -7,11 +7,20 @@ public class GameManager : MonoBehaviour
 {
     public bool GameHasEnded { get => gameHasEnded; set => gameHasEnded = value; }
     private bool gameHasEnded = false;
-    float restartDelay = 1f;
-    public GameObject completeLevelUI;
+    readonly float restartDelay = 1f;
+    private GameObject completeLevelUI;
+
     void Start()
     {
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
+        /**
+         * Check to see if the LevelCompleteCanvas has been added to the scene.
+         * 
+         * Methods related to the Complete Level UI are only related to the Endtrigger
+         * being called, so it is unnecessary to include a null check.
+         */
+        GameObject completeLevelCanvas = GameObject.Find("LevelCompleteCanvas");
+        completeLevelUI = completeLevelCanvas.transform.Find("LevelComplete").gameObject;
     }
 
     public void CompleteLevel ()
