@@ -4,15 +4,24 @@ using UnityEngine;
 
 public class ObstacleGeneration : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public Transform[] spawnPointArray;
+    public GameObject obstaclePrefab;
 
-    // Update is called once per frame
     void Update()
     {
-        
+        int randomIndex = Random.Range(0, spawnPointArray.Length);
+
+        for (var i = 0; i < spawnPointArray.Length; i++)
+        {
+            if (i == randomIndex)
+            {
+                Instantiate(obstaclePrefab, spawnPointArray[i].position, Quaternion.identity);
+            }
+        }
+    }
+
+    void spawnObstacle ()
+    {
+
     }
 }
