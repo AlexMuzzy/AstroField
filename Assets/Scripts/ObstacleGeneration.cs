@@ -6,8 +6,15 @@ public class ObstacleGeneration : MonoBehaviour
 {
     public Transform[] spawnPointArray;
     public GameObject obstaclePrefab;
+    public float startTime;
+    public float delayTime;
 
-    void Update()
+    void Start()
+    {
+        InvokeRepeating("SpawnObstacle", startTime, delayTime);
+    }
+
+    void SpawnObstacle ()
     {
         int randomIndex = Random.Range(0, spawnPointArray.Length);
 
@@ -15,13 +22,9 @@ public class ObstacleGeneration : MonoBehaviour
         {
             if (i == randomIndex)
             {
+                Debug.Log("Obstacle spawned at: " + i.ToString());
                 Instantiate(obstaclePrefab, spawnPointArray[i].position, Quaternion.identity);
             }
         }
-    }
-
-    void spawnObstacle ()
-    {
-
     }
 }

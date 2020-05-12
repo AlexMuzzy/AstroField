@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -18,9 +16,19 @@ public class GameManager : MonoBehaviour
          * 
          * Methods related to the Complete Level UI are only related to the Endtrigger
          * being called, so it is unnecessary to include a null check.
+         * 
+         * This class is also used in an instance where the 'LevelCompleteCanvas'
+         * will not exist, so a try catch block is used to handle such exceptions.
          */
-        GameObject completeLevelCanvas = GameObject.Find("LevelCompleteCanvas");
-        completeLevelUI = completeLevelCanvas.transform.Find("LevelComplete").gameObject;
+        try
+        {
+            GameObject completeLevelCanvas = GameObject.Find("LevelCompleteCanvas");
+            completeLevelUI = completeLevelCanvas.transform.Find("LevelComplete").gameObject;
+        } 
+        catch
+        {
+            Debug.Log("Complete Level Canvas was not detected.");
+        }
     }
 
     public void CompleteLevel ()
