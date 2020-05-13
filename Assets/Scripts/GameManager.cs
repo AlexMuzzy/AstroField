@@ -1,5 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -7,6 +9,9 @@ public class GameManager : MonoBehaviour
     private bool gameHasEnded = false;
     readonly float restartDelay = 1f;
     private GameObject completeLevelUI;
+    public PlayerData playerData;
+    public Transform player;
+    public Text scoreText;
 
     void Start()
     {
@@ -31,6 +36,18 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        if (!gameHasEnded)
+        {
+            scoreText.text = player.position.z.ToString("0");
+        }
+        else
+        {
+            scoreText.text = "Game Over!";
+        }
+    }
+
     public void CompleteLevel ()
     {
         //TODO: Refactor this method to LevelComplete class.
@@ -43,6 +60,11 @@ public class GameManager : MonoBehaviour
         if (!GameHasEnded)
         {
             GameHasEnded = true;
+            if (player.position.z > playerData.SaveData.hiScore)
+            {
+                Debug.Log("New High Score! High Score: " + player.position.z.ToString("0"));
+                playerData.SerializeData(new PlayerJsonData((int)Math.Round(player.position.z)));
+            }
             Debug.Log("Game Over");
             Invoke("Restart", restartDelay);
         }

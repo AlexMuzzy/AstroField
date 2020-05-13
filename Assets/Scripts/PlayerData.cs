@@ -7,18 +7,23 @@ using System;
 public class PlayerData : MonoBehaviour
 { 
     private string path;
+    public PlayerJsonData SaveData { get => saveData; set => saveData = value; }
+    private PlayerJsonData saveData;
 
     void Awake()
     {
-        path = Path.Combine(Application.persistentDataPath, "saved-files", "data.json");
+        path = Path.Combine(Application.persistentDataPath, "save-data.json");
 
         if (!File.Exists(path))
         {
-            SerializeData(new PlayerJsonData(0));
+            PlayerJsonData data = new PlayerJsonData();
+            SerializeData(data);
         }
-
-        PlayerJsonData data = DeserializeData();
-        Debug.Log(data);
+        else if (File.Exists(path))
+        {
+            saveData = DeserializeData();
+        }
+        Debug.Log(saveData.hiScore);
     }
 
     public void SerializeData(PlayerJsonData data)
@@ -55,7 +60,6 @@ public class PlayerData : MonoBehaviour
 [Serializable]
 public class PlayerJsonData
 {
-    public int HiScore { get => hiScore; set => hiScore = value; }
     public int hiScore;
 
     public PlayerJsonData(int hiScore)
