@@ -15,15 +15,15 @@ public class ObstacleGeneration : MonoBehaviour
     }
 
     void SpawnObstacle ()
-    {
+    {        
         int randomIndex = Random.Range(0, spawnPointArray.Length);
 
-        for (var i = 0; i < spawnPointArray.Length; i++)
+        foreach (Transform spawnPoint in spawnPointArray)
         {
-            if (i == randomIndex)
+            if (spawnPointArray[randomIndex] == spawnPoint)
             {
-                Debug.Log("Obstacle spawned at: " + i.ToString());
-                Instantiate(obstaclePrefab, spawnPointArray[i].position, Quaternion.identity);
+                Debug.Log("Obstacle spawned at: " + randomIndex);
+                Instantiate(obstaclePrefab, spawnPoint.position, Quaternion.identity);
             }
         }
     }
