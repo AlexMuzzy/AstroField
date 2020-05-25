@@ -12,6 +12,12 @@ public class PlayerData : MonoBehaviour
 
     void Awake()
     {
+        /**
+         * Script for use of storing player save data. If you wish to alter the values that
+         * are stored, then add additonal attributes to the JsonPlayerData class.
+         *
+         */
+
         path = Path.Combine(Application.persistentDataPath, "save-data.json");
 
         if (!File.Exists(path))

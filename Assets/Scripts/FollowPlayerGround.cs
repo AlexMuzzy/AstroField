@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class FollowPlayerGround : MonoBehaviour
 {
-    public float offsetPosition;
+    public float offsetPositionX;
+    public float offsetPositionZ;
     void FixedUpdate()
     {
         /**
-         * Follows the player z coordinate position, whilst keeping its own 
-         * x and y position.
+         * Follows the player x and z coordinate position, whilst keeping its own 
+         * y position.
          */
         Transform player = GameObject.Find("Player").transform;
-        transform.position = new Vector3(transform.position.x, transform.position.y, player.position.z + offsetPosition);
+        transform.position = new Vector3(player.position.x + offsetPositionX, transform.position.y, player.position.z + offsetPositionZ);
     }
 }
